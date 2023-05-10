@@ -3,6 +3,7 @@
 
 /********************************************************
  * Code made by Leandro Filipe, the best member of NEEC *
+ * Adapted by Rui Goncalves, the greatest member of NEEC*
  ********************************************************/
 
 PS2X ps2x;
@@ -15,19 +16,19 @@ Servo grip;
 int error = 0;
 int degree = 0;
 
-int maxRotation = 170;
+int maxRotation = 180;
 int minRotation = 0;
-int maxGrip = 130;
-int minGrip = 50;
-int maxXtranslation = 160;
-int minXtranslation = 2;
-int maxZtranslation = 180;
-int minZtranslation = 45;
+int maxGrip = 120;
+int minGrip =30;
+int maxXtranslation = 156;
+int minXtranslation = 64;
+int maxZtranslation = 125;
+int minZtranslation = 0;
 
-int rotationPosition = 88;
-int gripPosition = 110;
-int xTranslatePosition = 68;
-int zTranslatePosition = 142;
+int rotationPosition = 85;
+int gripPosition = 80;
+int xTranslatePosition = 110;
+int zTranslatePosition = 63;
 
 int stickToSpeed(int stick) {
   int stickSpeed = (int) ps2x.Analog(stick);
@@ -109,7 +110,7 @@ double calculateMinXTranslation(double x) {
 
 void beginPS2() {
   byte type = 0;
-  error = ps2x.config_gamepad(10, 12, 11, 13, true, true); //GamePad(clock, command, attention, data, Pressures?, Rumble?)
+  error = ps2x.config_gamepad(3, 5, 4, 6, true, true); //GamePad(clock, command, attention, data, Pressures?, Rumble?)
   switch (error) {
     case 0: Serial.println("Found Controller, configured successful"); break;
     case 1: Serial.println("No controller found, check wiring, see readme.txt to enable debug. visit www.billporter.info for troubleshooting tips"); break;
@@ -127,10 +128,10 @@ void beginPS2() {
 void setup() {
   Serial.begin(9600);
   beginPS2();
-  ztranslation.attach(3);
-  rotation.attach(6);
-  xtranslation.attach(5);
-  grip.attach(9);
+  ztranslation.attach(10);
+  rotation.attach(11);
+  xtranslation.attach(9);
+  grip.attach(12);
 
   rotation.write(rotationPosition);
   grip.write(gripPosition);
